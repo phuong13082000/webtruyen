@@ -23,11 +23,11 @@
 
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Quản Lý Truyện Sách
+                Quản Lý Truyện
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{route('truyen.index')}}">Liệt Kê Truyện Sách</a></li>
-                <li><a class="dropdown-item" href="{{route('truyen.create')}}">Thêm Truyện Sách</a></li>
+                <li><a class="dropdown-item" href="{{route('truyen.index')}}">Liệt Kê Truyện</a></li>
+                <li><a class="dropdown-item" href="{{route('truyen.create')}}">Thêm Truyện</a></li>
             </ul>
             </li>
         </ul>

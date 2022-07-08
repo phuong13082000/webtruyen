@@ -21,6 +21,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Tên Danh Mục</th>
+                                <th>Slug</th>
                                 <th>Mô Tả</th>
                                 <th>Kích Hoạt</th>
                                 <th>Quản Lý</th>
@@ -30,6 +31,7 @@
                             <tr>
                                 <td>{{$key}}</td>
                                 <td>{{$danhmuc->tendanhmuc}}</td>
+                                <td>{{$danhmuc->slug}}</td>
                                 <td>{{$danhmuc->mota}}</td>
                                 <td>
                                     @if ($danhmuc->kichhoat==0)
@@ -40,6 +42,8 @@
                                 </td>
 
                                 <td>
+                                    <a href="{{route('danhmuc.edit',['danhmuc'=>$danhmuc->id])}}" class="btn btn-primary">Edit</a>
+
                                     <form action="{{route('danhmuc.destroy',['danhmuc' => $danhmuc->id])}}" method="POST">
                                     @method('DELETE')
                                     @csrf

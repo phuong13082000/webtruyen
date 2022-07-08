@@ -11,9 +11,14 @@ class DanhMucTruyen extends Model
     public $timestamps = false;
     protected $fillable = [
         'tendanhmuc',
+        'slug',
         'mota',
         'kichhoat',
     ];
     protected $primaryKey = 'id';
     protected $table = 'danhmuc';
+
+    public function truyen(){
+        return $this->hasMany('App\Models\Truyen');
+    }
 }
