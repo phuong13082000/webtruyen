@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\DanhMucController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -11,3 +12,4 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resource('danhmuc', DanhMucController::class);
 Route::resource('truyen', TruyenController::class);
+Route::resource('chapter', ChapterController::class);

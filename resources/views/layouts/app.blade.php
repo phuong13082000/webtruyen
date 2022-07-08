@@ -82,7 +82,11 @@
         @yield('content')
     </main>
 </div>
-
+<script src="https://cdn.ckeditor.com/4.19.0/full/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('desc_chapter');
+    CKEDITOR.replace('desc_truyen');
+</script>
 <script type="text/javascript">
     function ChangeToSlug() {
         var slug;

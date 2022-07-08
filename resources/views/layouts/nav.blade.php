@@ -13,7 +13,7 @@
 
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Quản Lý Danh Mục
+                Danh Mục
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{{route('danhmuc.index')}}">Liệt Kê Danh Mục</a></li>
@@ -23,12 +23,22 @@
 
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Quản Lý Truyện
+                Truyện
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{{route('truyen.index')}}">Liệt Kê Truyện</a></li>
                 <li><a class="dropdown-item" href="{{route('truyen.create')}}">Thêm Truyện</a></li>
             </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Chapter
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{{route('chapter.index')}}">Liệt Kê Chapter</a></li>
+                    <li><a class="dropdown-item" href="{{route('chapter.create')}}">Thêm Chapter</a></li>
+                </ul>
             </li>
         </ul>
 

@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Thêm Truyện</div>
+                    <div class="card-header">Thêm Chapter</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -26,34 +26,35 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{route('truyen.store')}}" enctype="multipart/form-data">
+                        <form method="POST" action="{{route('chapter.store')}}">
                             @csrf
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Tên Truyện</label>
-                                    <input type="text" class="form-control" id="slug" name="tentruyen"
-                                           onkeyup="ChangeToSlug();" value="{{old('tentruyen')}}">
+                                    <label class="form-label">Tên Chapter</label>
+                                    <input type="text" class="form-control" id="slug" name="tieude"
+                                           onkeyup="ChangeToSlug();" value="{{old('tieude')}}">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Slug truyện</label>
-                                    <input type="text" class="form-control" id="convert_slug" name="slug_truyen"
-                                           value="{{old('slug_truyen')}}">
+                                    <label class="form-label">Slug Chapter</label>
+                                    <input type="text" class="form-control" id="convert_slug" name="slug_chapter"
+                                           value="{{old('slug_chapter')}}">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Tóm tắt truyện</label>
-                                    <textarea class="form-control" name="tomtat" id="desc_truyen"  value="{{old('tomtat')}}"></textarea>
+                                    <label class="form-label">Tóm tắt Chapter</label>
+                                    <input type="text" class="form-control" id="" name="tomtat"
+                                           value="{{old('tomtat')}}">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Danh mục truyện</label>
-                                    <select name="danhmuc" class="form-select" aria-label="Default select example">
-                                        @foreach($danhmuc as $key => $muc)
-                                            <option value="{{$muc->id}}">{{$muc->tendanhmuc}}</option>
+                                    <label class="form-label">Nội dung Chapter</label>
+                                    <textarea id="desc_chapter" name="noidung" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Thuộc truyện</label>
+                                    <select name="truyen_id" class="form-select" aria-label="Default select example">
+                                        @foreach($truyen as $key => $value)
+                                            <option value="{{$value->id}}">{{$value->tentruyen}}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Hình ảnh truyện</label>
-                                    <input type="file" class="form-control" id="inputGroupFile02" name="hinhanh">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Kích Hoạt</label>

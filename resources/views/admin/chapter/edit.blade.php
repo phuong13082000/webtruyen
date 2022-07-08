@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Sửa Truyện</div>
+                    <div class="card-header">Sửa Danh Mục</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -26,43 +26,30 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{route('truyen.update',[$truyen->id])}}"
-                              enctype="multipart/form-data">
+                        <form method="POST" action="{{route('danhmuc.update', [$danhmuc->id])}}">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Tên Truyện</label>
-                                    <input type="text" class="form-control" id="slug" name="tentruyen"
-                                           onkeyup="ChangeToSlug();" value="{{$truyen->tentruyen}}">
+                                    <label class="form-label">Tên Danh Mục</label>
+                                    <input type="text" class="form-control" id="slug" name="tendanhmuc"
+                                           onkeyup="ChangeToSlug();" value="{{$danhmuc->tendanhmuc}}">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Slug truyện</label>
-                                    <input type="text" class="form-control" id="convert_slug" name="slug_truyen"
-                                           value="{{$truyen->slug_truyen}}">
+                                    <label class="form-label">Slug Danh Mục</label>
+                                    <input type="text" class="form-control" id="convert_slug" name="slug"
+                                           value="{{$danhmuc->slug}}">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Tóm tắt truyện</label>
-                                    <textarea class="form-control" name="tomtat" id="desc_truyen">{{$truyen->tomtat}}</textarea>
+                                    <label class="form-label">Mô Tả Danh Mục</label>
+                                    <input type="text" class="form-control" id="" name="mota"
+                                           value="{{$danhmuc->mota}}">
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Danh mục truyện</label>
-                                    <select name="danhmuc" class="form-select" aria-label="Default select example">
-                                        @foreach($danhmuc as $key => $muc)
-                                            <option {{$muc->id == $truyen->danhmuc_id ? 'selected' : ''}} value="{{$muc->id}}">{{$muc->tendanhmuc}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Hình ảnh truyện</label>
-                                    <input type="file" class="form-control" id="inputGroupFile02" name="hinhanh">
-                                    <img src="{{asset('public/uploads/truyen/' . $truyen->hinhanh)}}" height="150px" weight="150px">
 
-                                </div>
                                 <div class="form-group">
                                     <label class="form-label">Kích Hoạt</label>
                                     <select name="kichhoat" class="form-select" aria-label="Default select example">
-                                        @if($truyen->kichhoat == 0)
+                                        @if($danhmuc->kichhoat == 0)
                                             <option selected value="0">Có</option>
                                             <option value="1">Không</option>
                                         @else
@@ -79,5 +66,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
