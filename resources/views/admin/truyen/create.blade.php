@@ -63,7 +63,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" name="themdanhmuc" class="btn btn-primary">Thêm</button>
+                            <button type="submit" name="themtruyen" class="btn btn-primary">Thêm</button>
                         </form>
 
                     </div>

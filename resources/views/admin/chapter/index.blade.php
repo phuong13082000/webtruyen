@@ -29,16 +29,16 @@
                                 <th>Quản Lý</th>
                             </tr>
                         </thead>
-                        @foreach ($list_chapter as $key => $chapter )
+                        @foreach ($chapter as $key => $chap )
                             <tr>
                                 <td>{{$key}}</td>
-                                <td>{{$chapter->tieude}}</td>
-                                <td>{{$chapter->slug_chapter}}</td>
-                                <td>{{$chapter->tomtat}}</td>
-                                <td>{{$chapter->noidung}}</td>
-                                <td></td>
+                                <td>{{$chap->tieude}}</td>
+                                <td>{{$chap->slug_chapter}}</td>
+                                <td>{{$chap->tomtat}}</td>
+                                <td>{{$chap->noidung}}</td>
+                                <td>{{$chap->truyen->tentruyen}}</td>
                                 <td>
-                                    @if ($chapter->kichhoat==0)
+                                    @if ($chap->kichhoat==0)
                                         <span class="text text-success">Có</span>
                                     @else
                                         <span class="text text-danger">Không</span>
@@ -46,9 +46,9 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{route('chapter.edit',['chapter'=>$chapter->id])}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{route('chapter.edit',[$chap->id])}}" class="btn btn-primary">Edit</a>
 
-                                    <form action="{{route('chapter.destroy',['chapter' => $chapter->id])}}" method="POST">
+                                    <form action="{{route('chapter.destroy',[$chap->id])}}" method="POST">
                                     @method('DELETE')
                                     @csrf
                                     <button onclick="return confirm('Bạn có muốn xóa chapter này?');" class="btn btn-danger">Xóa</button>

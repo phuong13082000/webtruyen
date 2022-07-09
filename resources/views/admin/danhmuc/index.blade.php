@@ -42,9 +42,9 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{route('danhmuc.edit',['danhmuc'=>$danhmuc->id])}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{route('danhmuc.edit',[$danhmuc->id])}}" class="btn btn-primary">Edit</a>
 
-                                    <form action="{{route('danhmuc.destroy',['danhmuc' => $danhmuc->id])}}" method="POST">
+                                    <form action="{{route('danhmuc.destroy',[$danhmuc->id])}}" method="POST">
                                     @method('DELETE')
                                     @csrf
                                     <button onclick="return confirm('Bạn có muốn xóa danh mục này?');" class="btn btn-danger">Xóa</button>

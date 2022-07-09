@@ -59,7 +59,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" name="themdanhmuc" class="btn btn-primary">Cập Nhật</button>
+                            <button type="submit" name="editdanhmuc" class="btn btn-primary">Cập Nhật</button>
                         </form>
 
                     </div>

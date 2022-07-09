@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Sửa Danh Mục</div>
+                    <div class="card-header">Sửa Chapter</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -26,30 +26,41 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{route('danhmuc.update', [$danhmuc->id])}}">
+                        <form method="POST" action="{{route('chapter.update',[$chapter->id])}}">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Tên Danh Mục</label>
-                                    <input type="text" class="form-control" id="slug" name="tendanhmuc"
-                                           onkeyup="ChangeToSlug();" value="{{$danhmuc->tendanhmuc}}">
+                                    <label class="form-label">Tên Chapter</label>
+                                    <input type="text" class="form-control" id="slug" name="tieude"
+                                           onkeyup="ChangeToSlug();" value="{{$chapter->tieude}}">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Slug Danh Mục</label>
-                                    <input type="text" class="form-control" id="convert_slug" name="slug"
-                                           value="{{$danhmuc->slug}}">
+                                    <label class="form-label">Slug Chapter</label>
+                                    <input type="text" class="form-control" id="convert_slug" name="slug_chapter"
+                                           value="{{$chapter->slug_chapter}}">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Mô Tả Danh Mục</label>
-                                    <input type="text" class="form-control" id="" name="mota"
-                                           value="{{$danhmuc->mota}}">
+                                    <label class="form-label">Tóm tắt Chapter</label>
+                                    <input type="text" class="form-control" id="" name="tomtat"
+                                           value="{{$chapter->tomtat}}">
                                 </div>
-
+                                <div class="form-group">
+                                    <label class="form-label">Nội dung Chapter</label>
+                                    <textarea id="desc_chapter" name="noidung" class="form-control">{{$chapter->noidung}}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Thuộc truyện</label>
+                                    <select name="truyen_id" class="form-select" aria-label="Default select example">
+                                        @foreach($truyen as $key => $value)
+                                            <option {{$chapter->truyen_id == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->tentruyen}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label class="form-label">Kích Hoạt</label>
                                     <select name="kichhoat" class="form-select" aria-label="Default select example">
-                                        @if($danhmuc->kichhoat == 0)
+                                        @if($chapter->kichhoat == 0)
                                             <option selected value="0">Có</option>
                                             <option value="1">Không</option>
                                         @else
@@ -58,14 +69,12 @@
                                         @endif
                                     </select>
                                 </div>
-                            </div>
-                            <button type="submit" name="themdanhmuc" class="btn btn-primary">Cập Nhật</button>
+                            <button type="submit" name="editchapter" class="btn btn-primary">Thêm</button>
                         </form>
 
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
