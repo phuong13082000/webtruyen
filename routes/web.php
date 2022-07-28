@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\DanhMucController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -13,3 +14,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('danhmuc', DanhMucController::class);
 Route::resource('truyen', TruyenController::class);
 Route::resource('chapter', ChapterController::class);
+
+Route::get('/', [IndexController::class, 'home']);
+Route::get('/doc-truyen/{id}', [IndexController::class, 'doctruyen'])->name('doc-truyen');
