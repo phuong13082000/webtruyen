@@ -21,11 +21,13 @@ class Truyen extends Model
     protected $primaryKey = 'id';
     protected $table = 'truyen';
 
-    public function danhMucTruyen(){
+    public function danhMucTruyen()
+    {
         return $this->belongsTo('App\Models\DanhMucTruyen', 'danhmuc_id', 'id');
     }
 
-    public function chapter(){
+    public function chapter()
+    {
         return $this->hasMany('App\Models\Chapter', 'truyen_id', 'id');
     }
 }

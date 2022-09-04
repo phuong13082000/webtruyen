@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th7 23, 2022 lúc 05:13 AM
+-- Thời gian đã tạo: Th8 05, 2022 lúc 05:50 AM
 -- Phiên bản máy phục vụ: 5.7.36
--- Phiên bản PHP: 7.4.26
+-- Phiên bản PHP: 8.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;

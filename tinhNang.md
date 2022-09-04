@@ -1,6 +1,0 @@
-- laravel 8 / php 7.3
-- bootstrap 5
-- Ckeditor 4
-- CRUD Category
-- CRUD Comic
-- CRUD Chapter

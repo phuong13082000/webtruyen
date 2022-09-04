@@ -20,7 +20,8 @@ class Chapter extends Model
     protected $primaryKey = 'id';
     protected $table = 'chapter';
 
-    public function truyen(){
+    public function truyen()
+    {
         return $this->belongsTo('App\Models\Truyen');
     }
 }
