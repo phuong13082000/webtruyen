@@ -4,9 +4,7 @@
         <p class="float-end">
             <a href="#">Back to top</a>
         </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius minus, saepe! Architecto assumenda autem
-            cumque expedita minus necessitatibus repellat, temporibus! Alias amet iusto laborum nemo. Architecto
-            enim id nesciunt ratione.</p>
+        <p>Make in 2022 with Laravel 8</p>
     </div>
 </footer>
 <!--end-footer-->
