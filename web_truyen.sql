@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 22, 2022 at 02:44 PM
+-- Generation Time: Sep 22, 2022 at 03:35 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -154,6 +154,29 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `theloai`
+--
+
+DROP TABLE IF EXISTS `theloai`;
+CREATE TABLE IF NOT EXISTS `theloai` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `tentheloai` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `mota` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `kichhoat` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `theloai`
+--
+
+INSERT INTO `theloai` (`id`, `tentheloai`, `slug`, `mota`, `kichhoat`) VALUES
+(1, 'Tình Cảm', 'tinh-cam', 'Tình cảm', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `truyen`
 --
 
@@ -164,19 +187,21 @@ CREATE TABLE IF NOT EXISTS `truyen` (
   `tomtat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tacgia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `danhmuc_id` int NOT NULL,
+  `theloai_id` int NOT NULL,
   `hinhanh` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug_truyen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `kichhoat` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `danhmuc_id` (`danhmuc_id`)
+  KEY `danhmuc_id` (`danhmuc_id`),
+  KEY `theloai_id` (`theloai_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `truyen`
 --
 
-INSERT INTO `truyen` (`id`, `tentruyen`, `tomtat`, `tacgia`, `danhmuc_id`, `hinhanh`, `slug_truyen`, `kichhoat`) VALUES
-(5, 'Anh đã làm chuyện đó với ai', '<p>chua co tom tat</p>', 'Hoàng Phương', 7, 'truyen23.jpeg', 'anh-da-lam-chuyen-do-voi-ai', 0);
+INSERT INTO `truyen` (`id`, `tentruyen`, `tomtat`, `tacgia`, `danhmuc_id`, `theloai_id`, `hinhanh`, `slug_truyen`, `kichhoat`) VALUES
+(5, 'Anh đã làm chuyện đó với ai', '<p>chua co tom tat</p>', 'Hoàng Phương', 7, 1, 'truyen23.jpeg', 'anh-da-lam-chuyen-do-voi-ai', 0);
 
 -- --------------------------------------------------------
 

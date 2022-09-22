@@ -18,6 +18,7 @@ class Truyen extends Model
         'slug_truyen',
         'hinhanh',
         'danhmuc_id',
+        'theloai_id',
     ];
     protected $primaryKey = 'id';
     protected $table = 'truyen';
@@ -25,6 +26,11 @@ class Truyen extends Model
     public function danhMucTruyen()
     {
         return $this->belongsTo('App\Models\DanhMucTruyen', 'danhmuc_id', 'id');
+    }
+
+    public function theloai()
+    {
+        return $this->belongsTo('App\Models\TheLoai', 'theloai_id', 'id');
     }
 
     public function chapter()

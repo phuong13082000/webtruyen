@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DanhMucTruyen;
+use App\Models\TheLoai;
 use App\Models\Truyen;
 use Illuminate\Http\Request;
 
@@ -11,27 +12,34 @@ class TruyenController extends Controller
 
     public function index()
     {
-        $list_truyen = Truyen::with('danhMucTruyen')->orderBy('id', 'DESC')->get();
+        $list_truyen = Truyen::with('danhMucTruyen')
+            ->with('theloai')
+            ->orderBy('id', 'DESC')->get();
+
         return view('admin.truyen.index')->with(compact('list_truyen'));
     }
 
     public function create()
     {
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
-        return view('admin.truyen.create')->with(compact('danhmuc'));
+        $theloai = TheLoai::orderBy('id', 'DESC')->get();
+
+        return view('admin.truyen.create')->with(compact('danhmuc', 'theloai'));
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'tentruyen' => 'required|unique:truyen|max:255',
-            'slug_truyen' => 'required|max:255',
-            'tacgia' => 'required|max:255',
-            'hinhanh' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
-            'tomtat' => 'required',
-            'kichhoat' => 'required',
-            'danhmuc' => 'required',
-        ],
+        $data = $request->validate(
+            [
+                'tentruyen' => 'required|unique:truyen|max:255',
+                'slug_truyen' => 'required|max:255',
+                'tacgia' => 'required|max:255',
+                'hinhanh' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+                'tomtat' => 'required',
+                'kichhoat' => 'required',
+                'danhmuc' => 'required',
+                'theloai' => 'required',
+            ],
             [
                 'tentruyen.required' => 'Vui lòng nhập tên truyện!',
                 'unique.tentruyen' => 'Đã có tên truyện, vui lòng đổi tên khác!',
@@ -51,6 +59,7 @@ class TruyenController extends Controller
         $truyen->tacgia = $data['tacgia'];
         $truyen->kichhoat = $data['kichhoat'];
         $truyen->danhmuc_id = $data['danhmuc'];
+        $truyen->theloai_id = $data['theloai'];
 
         //them anh vao folder hinh
         $get_image = $request->hinhanh;
@@ -63,7 +72,6 @@ class TruyenController extends Controller
         $truyen->hinhanh = $new_image;
         $truyen->save();
         return redirect()->back()->with('status', 'Thêm truyện thành công!');
-
     }
 
     public function show($id)
@@ -75,20 +83,23 @@ class TruyenController extends Controller
     {
         $truyen = Truyen::find($id);
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
+        $theloai = TheLoai::orderBy('id', 'DESC')->get();
 
-        return view('admin.truyen.edit')->with(compact('truyen', 'danhmuc'));
+        return view('admin.truyen.edit')->with(compact('truyen', 'danhmuc', 'theloai'));
     }
 
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'tentruyen' => 'required|max:255',
-            'slug_truyen' => 'required|max:255',
-            'tomtat' => 'required',
-            'tacgia' => 'required',
-            'kichhoat' => 'required',
-            'danhmuc' => 'required',
-        ],
+        $data = $request->validate(
+            [
+                'tentruyen' => 'required|max:255',
+                'slug_truyen' => 'required|max:255',
+                'tomtat' => 'required',
+                'tacgia' => 'required',
+                'kichhoat' => 'required',
+                'danhmuc' => 'required',
+                'theloai' => 'required',
+            ],
             [
                 'tentruyen.required' => 'Vui lòng nhập tên truyện!',
                 'tomtat.required' => 'Vui lòng nhập tóm tắt!',
@@ -102,6 +113,7 @@ class TruyenController extends Controller
         $truyen->tacgia = $data['tacgia'];
         $truyen->kichhoat = $data['kichhoat'];
         $truyen->danhmuc_id = $data['danhmuc'];
+        $truyen->theloai_id = $data['theloai'];
 
         //them anh vao folder hinh
         $get_image = $request->hinhanh;
@@ -120,7 +132,6 @@ class TruyenController extends Controller
         }
         $truyen->save();
         return redirect()->back()->with('status', 'Cập nhật truyện thành công!');
-
     }
 
     public function destroy($id)

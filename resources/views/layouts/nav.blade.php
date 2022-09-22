@@ -6,6 +6,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('home')}}">Admin</a>
                     </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -16,6 +17,18 @@
                             <li><a class="dropdown-item" href="{{route('danhmuc.create')}}">Thêm Danh Mục</a></li>
                         </ul>
                     </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Thể Loại
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{route('theloai.index')}}">Liệt Kê Thể Loại</a></li>
+                            <li><a class="dropdown-item" href="{{route('theloai.create')}}">Thêm Thể Loại</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,6 +39,7 @@
                             <li><a class="dropdown-item" href="{{route('truyen.create')}}">Thêm Truyện</a></li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,6 +50,7 @@
                             <li><a class="dropdown-item" href="{{route('chapter.create')}}">Thêm Chapter</a></li>
                         </ul>
                     </li>
+
                 </ul>
             </div>
         </div>

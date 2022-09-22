@@ -19,28 +19,29 @@
                         <table class="table table-bordered table-responsive">
                             <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Hình Ảnh</th>
                                 <th>Tên Truyện</th>
                                 <th>Slug</th>
                                 <th>Tóm tắt</th>
                                 <th>Tác giả</th>
-                                <th>Hình Ảnh</th>
                                 <th>Danh Mục</th>
+                                <th>Thể Loại</th>
                                 <th>Kích Hoạt</th>
                                 <th>Quản Lý</th>
                             </tr>
                             </thead>
                             @foreach($list_truyen as $key => $truyen)
                                 <tr>
-                                    <td>{{$key}}</td>
+                                    <td>
+                                        <img src="{{asset('public/uploads/truyen/' . $truyen->hinhanh)}}" height="150px" weight="150px">
+                                    </td>
+
                                     <td>{{$truyen->tentruyen}}</td>
                                     <td>{{$truyen->slug_truyen}}</td>
                                     <td>{{$truyen->tomtat}}</td>
                                     <td>{{$truyen->tacgia}}</td>
-                                    <td>
-                                        <img src="{{asset('public/uploads/truyen/' . $truyen->hinhanh)}}" height="150px" weight="150px">
-                                    </td>
-                                    <td>{{$truyen->danhMucTruyen->tendanhmuc}}</td>
+                                    <td>{{$truyen->danhmuctruyen->tendanhmuc}}</td>
+                                    <td>{{$truyen->theloai->tentheloai}}</td>
                                     <td>
                                         @if ($truyen->kichhoat==0)
                                             <span class="text text-success">Có</span>

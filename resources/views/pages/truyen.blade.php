@@ -30,6 +30,7 @@
                         <li><h3>{{ $truyen->tentruyen }}</h3></li>
                         <li>Tác giả: {{ $truyen->tacgia }}</li>
                         <li>Danh mục: <a href="{{ url('danh-muc/'.$truyen->danhmuctruyen->slug) }}">{{ $truyen->danhmuctruyen->tendanhmuc }}</a> </li>
+                        <li>Thể loại: <a href="{{ url('the-loai/'.$truyen->theloai->slug) }}">{{ $truyen->theloai->tentheloai }}</a> </li>
                         <li>Số chapter:</li>
                         <li>Số lượt xem:</li>
                         <li><a href="#mucluc">Xem mục lục</a></li>
