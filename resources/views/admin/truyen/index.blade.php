@@ -23,6 +23,7 @@
                                 <th>Tên Truyện</th>
                                 <th>Slug</th>
                                 <th>Tóm tắt</th>
+                                <th>Tác giả</th>
                                 <th>Hình Ảnh</th>
                                 <th>Danh Mục</th>
                                 <th>Kích Hoạt</th>
@@ -35,6 +36,7 @@
                                     <td>{{$truyen->tentruyen}}</td>
                                     <td>{{$truyen->slug_truyen}}</td>
                                     <td>{{$truyen->tomtat}}</td>
+                                    <td>{{$truyen->tacgia}}</td>
                                     <td>
                                         <img src="{{asset('public/uploads/truyen/' . $truyen->hinhanh)}}" height="150px" weight="150px">
                                     </td>
@@ -52,8 +54,7 @@
                                         <form action="{{route('truyen.destroy',[$truyen->id])}}" method="POST">
                                             @method('DELETE')
                                             @csrf
-                                            <button onclick="return confirm('Bạn có muốn xóa truyện này?');"
-                                                    class="btn btn-danger">Xóa
+                                            <button onclick="return confirm('Bạn có muốn xóa truyện này?');" class="btn btn-danger">Xóa
                                             </button>
                                         </form>
                                     </td>

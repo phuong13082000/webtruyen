@@ -16,4 +16,5 @@ Route::resource('truyen', TruyenController::class);
 Route::resource('chapter', ChapterController::class);
 
 Route::get('/', [IndexController::class, 'home']);
-Route::get('/doc-truyen/{id}', [IndexController::class, 'doctruyen'])->name('doc-truyen');
+Route::get('/xem-truyen/{slug}', [IndexController::class, 'xemtruyen']);
+Route::get('/danh-muc/{slug}', [IndexController::class, 'danhmuc']);

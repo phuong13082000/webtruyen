@@ -13,6 +13,7 @@ class Truyen extends Model
     protected $fillable = [
         'tentruyen',
         'tomtat',
+        'tacgia',
         'kichhoat',
         'slug_truyen',
         'hinhanh',

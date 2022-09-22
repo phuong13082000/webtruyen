@@ -53,6 +53,14 @@
 
                             <div class="mb-3">
                                 <div class="form-group">
+                                    <label class="form-label">Tác giả</label>
+                                    <input type="text" class="form-control" id="tacgia" name="tacgia"
+                                        value="{{ old('tacgia') }}">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-group">
                                     <label class="form-label">Danh mục truyện</label>
                                     <select name="danhmuc" class="form-select" aria-label="Default select example">
                                         @foreach ($danhmuc as $key => $muc)
