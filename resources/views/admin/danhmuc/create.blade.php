@@ -26,24 +26,30 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{route('danhmuc.store')}}">
+                        <form method="POST" action="{{ route('danhmuc.store') }}">
                             @csrf
                             <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Tên Danh Mục</label>
                                     <input type="text" class="form-control" id="slug" name="tendanhmuc"
-                                           onkeyup="ChangeToSlug();" value="{{old('tendanhmuc')}}">
+                                        onkeyup="ChangeToSlug();" value="{{ old('tendanhmuc') }}">
                                 </div>
+                            </div>
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Slug Danh Mục</label>
                                     <input type="text" class="form-control" id="convert_slug" name="slug"
-                                           value="{{old('slug')}}">
+                                        value="{{ old('slug') }}">
                                 </div>
+                            </div>
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Mô Tả Danh Mục</label>
-                                    <input type="text" class="form-control" id="" name="mota" value="{{old('mota')}}">
+                                    <input type="text" class="form-control" id="" name="mota"
+                                        value="{{ old('mota') }}">
                                 </div>
-
+                            </div>
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Kích Hoạt</label>
                                     <select name="kichhoat" class="form-select" aria-label="Default select example">
@@ -52,12 +58,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" name="themdanhmuc" class="btn btn-primary">Thêm</button>
-                        </form>
-
                     </div>
+                    <button type="submit" name="themdanhmuc" class="btn btn-primary">Thêm</button>
+                    </form>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
