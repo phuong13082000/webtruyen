@@ -14,9 +14,14 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $truyen->slug_truyen }}</li>
+            <li class="breadcrumb-item"><a href="{{ url('danh-muc/'.$truyen->danhmuctruyen->slug) }}">{{ $truyen->danhmuctruyen->tendanhmuc }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $truyen->tentruyen }}</li>
         </ol>
     </nav>
+
+    @php
+        $mucluc = count($chapter);
+    @endphp
 
     <div class="row">
         <div class="col-md-9">
@@ -31,7 +36,7 @@
                         <li>Tác giả: {{ $truyen->tacgia }}</li>
                         <li>Danh mục: <a href="{{ url('danh-muc/'.$truyen->danhmuctruyen->slug) }}">{{ $truyen->danhmuctruyen->tendanhmuc }}</a> </li>
                         <li>Thể loại: <a href="{{ url('the-loai/'.$truyen->theloai->slug) }}">{{ $truyen->theloai->tentheloai }}</a> </li>
-                        <li>Số chapter:</li>
+                        <li>Số chapter: {{ $mucluc }}</li>
                         <li>Số lượt xem:</li>
                         <li><a href="#mucluc">Xem mục lục</a></li>
 

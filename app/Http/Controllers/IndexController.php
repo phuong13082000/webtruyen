@@ -88,6 +88,14 @@ class IndexController extends Controller
             ->orderBy('id', 'ASC')
             ->where('truyen_id', $truyen->truyen_id)->get();
 
-        return view('pages.chapter')->with(compact('danhmuc', 'theloai', 'chapter', 'all_chapter'));
+        $truyen_breadcrumb = Truyen::with('danhmuctruyen', 'theloai')
+            ->where('id', $truyen->truyen_id)->first();
+
+        //$max_id = Chapter::where('truyen_id', $truyen->truyen_id)->orderBy('id','DESC')->first();
+        //$min_id = Chapter::where('truyen_id', $truyen->truyen_id)->orderBy('id','ASC')->first();
+        //$next_chapter = Chapter::where('truyen_id', $truyen->truyen_id)->where('id','>',$chapter->id)->min('slug_chapter');
+        //$previous_chapter = Chapter::where('truyen_id', $truyen->truyen_id)->where('id','<',$chapter->id)->min('slug_chapter');
+
+        return view('pages.chapter')->with(compact('danhmuc', 'theloai', 'chapter', 'all_chapter', 'truyen_breadcrumb'));
     }
 }

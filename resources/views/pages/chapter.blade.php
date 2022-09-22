@@ -4,9 +4,12 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $chapter->slug_chapter }}</li>
+            <li class="breadcrumb-item"><a href="{{ url('the-loai/' . $truyen_breadcrumb->theloai->slug) }}">{{ $truyen_breadcrumb->theloai->tentheloai }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('danh-muc/' . $truyen_breadcrumb->danhmuctruyen->slug) }}">{{ $truyen_breadcrumb->danhmuctruyen->tendanhmuc }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $truyen_breadcrumb->tentruyen }}</li>
         </ol>
     </nav>
+
 
     <div class="row">
         <div class="col-md-12">
