@@ -14,11 +14,12 @@ class IndexController extends Controller
     {
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
         $theloai = TheLoai::orderBy('id', 'DESC')->get();
+        $slide_truyen =  Truyen::orderBy('id', 'DESC')->where('kichhoat', 0)->take(8)->get();
 
         $truyen = Truyen::orderBy('id', 'DESC')
             ->where('kichhoat', 0)->get();
 
-        return view('pages.home')->with(compact('danhmuc', 'theloai', 'truyen'));
+        return view('pages.home')->with(compact('danhmuc', 'theloai', 'truyen', 'slide_truyen'));
     }
 
     public function danhmuc($slug)
@@ -97,5 +98,19 @@ class IndexController extends Controller
         //$previous_chapter = Chapter::where('truyen_id', $truyen->truyen_id)->where('id','<',$chapter->id)->min('slug_chapter');
 
         return view('pages.chapter')->with(compact('danhmuc', 'theloai', 'chapter', 'all_chapter', 'truyen_breadcrumb'));
+    }
+
+    public function timkiem()
+    {
+        $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
+        $theloai = TheLoai::orderBy('id', 'DESC')->get();
+
+        $tukhoa = $_GET['tukhoa'];
+        $truyen = Truyen::with('danhmuctruyen', 'theloai')
+            ->where('tentruyen', 'LIKE', '%' . $tukhoa . '%')
+            ->orWhere('tomtat', 'LIKE', '%' . $tukhoa . '%')
+            ->orWhere('tacgia', 'LIKE', '%' . $tukhoa . '%')->get();
+
+        return view('pages.timkiem')->with(compact('danhmuc', 'truyen', 'theloai', 'tukhoa'));
     }
 }
