@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 22, 2022 at 07:54 AM
+-- Generation Time: Sep 22, 2022 at 02:44 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -30,23 +30,23 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `chapter`;
 CREATE TABLE IF NOT EXISTS `chapter` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `truyen_id` int UNSIGNED NOT NULL,
+  `truyen_id` int NOT NULL,
   `tieude` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug_chapter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tomtat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `noidung` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `noidung` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `kichhoat` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `truyen_id_2` (`truyen_id`),
   KEY `truyen_id` (`truyen_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `chapter`
 --
 
 INSERT INTO `chapter` (`id`, `truyen_id`, `tieude`, `slug_chapter`, `tomtat`, `noidung`, `kichhoat`) VALUES
-(2, 5, 'Chapter 1: Nhà chị dâu', 'chapter-1-nha-chi-dau', 'chua co tom tat', '<p>chua co noi dung</p>', 0);
+(2, 5, 'Chapter 1: Nhà chị dâu', 'chapter-1-nha-chi-dau', 'chua co tom tat', '<p>chua co noi dung</p>', 0),
+(17, 5, 'Chapter 2: Nhà cô hàng sớm', 'chapter-2-nha-co-hang-som', 'chưa cập nhật', '<p>chua cap nhat</p>', 0);
 
 -- --------------------------------------------------------
 
@@ -163,12 +163,11 @@ CREATE TABLE IF NOT EXISTS `truyen` (
   `tentruyen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tomtat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tacgia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `danhmuc_id` int UNSIGNED NOT NULL,
+  `danhmuc_id` int NOT NULL,
   `hinhanh` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug_truyen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `kichhoat` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `danhmuc_id_2` (`danhmuc_id`),
   KEY `danhmuc_id` (`danhmuc_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -205,22 +204,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'hoangphuong0813@gmail.com', NULL, '$2y$10$j8VN0jrb.EA/jzRmzIWsY.ivBhXIQhI80nRsILSrpeGISoXYg2UMK', '11V9dmHaw6ZBdYMNyFi2kObcmS3IbEUxHybV2INd8aquhjs2FdqyJzZfwIoL', '2022-07-05 20:36:18', '2022-07-05 20:36:18');
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `chapter`
---
-ALTER TABLE `chapter`
-  ADD CONSTRAINT `chapter_ibfk_1` FOREIGN KEY (`truyen_id`) REFERENCES `truyen` (`id`);
-
---
--- Constraints for table `truyen`
---
-ALTER TABLE `truyen`
-  ADD CONSTRAINT `truyen_ibfk_1` FOREIGN KEY (`danhmuc_id`) REFERENCES `danhmuc` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

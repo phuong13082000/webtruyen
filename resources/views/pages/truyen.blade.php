@@ -33,16 +33,19 @@
                         <li>Số chapter:</li>
                         <li>Số lượt xem:</li>
                         <li><a href="#mucluc">Xem mục lục</a></li>
-                        <li><a href="{{ url('xem-chapter/'.$chapter_dau->slug_chapter) }}" class="btn btn-primary">Đọc online</a></li>
+
+                        @if ($chapter_dau)
+                            <li><a href="{{ url('xem-chapter/'.$chapter_dau->slug_chapter) }}" class="btn btn-primary">Đọc online</a></li>
+                        @else
+                            <li><a href="#" class="btn btn-primary">Đang cập nhật</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
 
             <div class="col-md-12">
-                <h4>
-                    Tóm tắt
-                </h4>
-                <p>{{ $truyen->tomtat }}</p>
+                <h4>Tóm tắt</h4>
+                <p>{!! $truyen->tomtat !!}</p>
             </div>
             <hr>
             <h4 class="mucluc">Mục Lục</h4>

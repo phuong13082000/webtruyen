@@ -32,7 +32,6 @@ class IndexController extends Controller
         return view('pages.danhmuc')->with(compact('danhmuc', 'truyen', 'tendanhmuc'));
     }
 
-
     public function xemtruyen($slug)
     {
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
@@ -42,7 +41,7 @@ class IndexController extends Controller
             ->where('kichhoat', 0)->first();
 
         $chapter = Chapter::with('truyen')
-            ->orderBy('id', 'DESC')
+            ->orderBy('id', 'ASC')
             ->where('truyen_id', $truyen->id)->get();
 
         $chapter_dau = Chapter::with('truyen')
@@ -60,12 +59,16 @@ class IndexController extends Controller
     {
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
 
-        $truyen = Chapter::where('slug_chapter',$slug)->first();
+        $truyen = Chapter::where('slug_chapter', $slug)->first();
 
         $chapter = Chapter::with('truyen')
             ->where('slug_chapter', $slug)
             ->where('truyen_id', $truyen->truyen_id)->first();
 
-        return view('pages.chapter')->with(compact('danhmuc', 'chapter'));
+        $all_chapter = Chapter::with('truyen')
+            ->orderBy('id', 'ASC')
+            ->where('truyen_id', $truyen->truyen_id)->get();
+
+        return view('pages.chapter')->with(compact('danhmuc', 'chapter', 'all_chapter'));
     }
 }

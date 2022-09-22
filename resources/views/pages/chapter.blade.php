@@ -16,14 +16,24 @@
             <div class="col-md-5">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Chọn chương: </label>
-                    <select name="kichhoat" class="custom-select">
-                        <option value="0">chuong 1</option>
+                    <select name="kichhoat" id="select-chapter" class="custom-select select-chapter">
+                        @foreach ($all_chapter as $key => $chap)
+                            <option value="{{ url('xem-chapter/' . $chap->slug_chapter) }}">{{ $chap->tieude }}</option>
+                        @endforeach
                     </select>
                 </div>
+
                 <br><br>
                 <div class="noidungchuong">
                     {!! $chapter->noidung !!}
+
+
                 </div>
+
+                <h3>Lưu và chia sẻ chuyện: </h3>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+
             </div>
         </div>
     </div>
