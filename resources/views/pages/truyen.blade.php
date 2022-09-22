@@ -13,9 +13,8 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Library</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Data</li>
+            <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $truyen->slug_truyen }}</li>
         </ol>
     </nav>
 
@@ -23,15 +22,17 @@
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-3">
-                    <img class="card-img-top" src="{{asset('public/uploads/truyen/truyen82.jpeg')}}" alt="">
+                    <img class="card-img-top" src="{{ asset('public/uploads/truyen/' . $truyen->hinhanh) }}"
+                        alt="{{ $truyen->tentruyen }}"><br><br>
                 </div>
                 <div class="col-md-9">
                     <ul class="infotruyen">
-                        <li>Tác giả:</li>
-                        <li>Thể loại:</li>
+                        <li><h3>{{ $truyen->tentruyen }}</h3></li>
+                        <li>Tác giả: {{ $truyen->tacgia }}</li>
+                        <li>Danh mục: <a href="{{ url('danh-muc/'.$truyen->danhmuctruyen->slug) }}">{{ $truyen->danhmuctruyen->tendanhmuc }}</a> </li>
                         <li>Số chapter:</li>
                         <li>Số lượt xem:</li>
-                        <li><a href="#">Xem mục lục</a></li>
+                        <li><a href="#mucluc">Xem mục lục</a></li>
                         <li><a href="#" class="btn btn-primary">Đọc online</a></li>
                     </ul>
                 </div>
@@ -41,93 +42,48 @@
                 <h4>
                     Tóm tắt
                 </h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, autem cumque cupiditate ducimus
-                    eaque earum facilis harum laborum modi nemo nulla obcaecati, quaerat rem sapiente tempore vero
-                    vitae?
-                    At, quia?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur iusto officia praesentium quae
-                    quod sapiente sunt vel. A aut culpa cum, dolor dolorem eos molestiae nisi non officia sit? Enim!</p>
+                <p>{{ $truyen->tomtat }}</p>
             </div>
             <hr>
-            <h4>Mục Lục</h4>
+            <h4 class="mucluc">Mục Lục</h4>
+
             <ul class="mucluctruyen">
-                <li><a href="#">chuong 1-</a></li>
-                <li><a href="#">chuong 1-</a></li>
-                <li><a href="#">chuong 1-</a></li>
-                <li><a href="#">chuong 1-</a></li>
-                <li><a href="#">chuong 1-</a></li>
-                <li><a href="#">chuong 1-</a></li>
-                <li><a href="#">chuong 1-</a></li>
-                <li><a href="#">chuong 1-</a></li>
-                <li><a href="#">chuong 1-</a></li>
-                <li><a href="#">chuong 1-</a></li>
+                @php
+                    $mucluc = count($chapter);
+                @endphp
+                @if ($mucluc>0)
+                    @foreach ($chapter as $key => $chap)
+                    <li><a href="{{ url('xem-chapter/'.$chap->slug_chapter) }}">{{ $chap->tieude }}</a></li>
+                    @endforeach
+                @else
+                    <li>Mục lục đang cập nhật ...</li>
+                @endif
+
             </ul>
+
+            <hr>
             <h4>Sách cùng danh mục</h4>
             <div class="row">
 
-                <div class="col-md-3">
-                    <div class="card mb-3 box-shadow">
-                        <a href="#">
-                            <img class="card-img-top" alt="" src="{{asset('public/uploads/truyen/truyen82.jpeg')}}">
+                @foreach ($truyen_cungdanhmuc as $key => $value)
+                    <div class="col-md-3">
+                        <div class="card mb-3 box-shadow">
+                            <img class="card-img-top" alt=""
+                                src="{{ asset('public/uploads/truyen/' . $value->hinhanh) }}">
                             <div class="card-body">
-                                <h5>This is a wider card with supporting text below</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Accusantium
-                                    aliquam culpa cupiditate deserunt earum expedita fugit illo laudantium nesciunt odit
-                                    praesentium, quas quibusdam, reprehenderit sapiente soluta suscipit vel, vitae
-                                    voluptates?</p>
+                                <h5>{{ $value->tentruyen }}</h5>
+                                <p class="card-text">{{ $value->tomtat }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="{{ url('xem-truyen/' . $value->slug_truyen) }}" class="btn btn-sm btn-outline-secondary">Watch Now</a>
+                                        <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i>&nbsp;1111</a>
+                                    </div>
+                                </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
-                </div>
+                @endforeach
 
-                <div class="col-md-3">
-                    <div class="card mb-3 box-shadow">
-                        <a href="#">
-                            <img class="card-img-top" alt="" src="{{asset('public/uploads/truyen/truyen82.jpeg')}}">
-                            <div class="card-body">
-                                <h5>This is a wider card with supporting text below</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Accusantium
-                                    aliquam culpa cupiditate deserunt earum expedita fugit illo laudantium nesciunt odit
-                                    praesentium, quas quibusdam, reprehenderit sapiente soluta suscipit vel, vitae
-                                    voluptates?</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card mb-3 box-shadow">
-                        <a href="#">
-                            <img class="card-img-top" alt="" src="{{asset('public/uploads/truyen/truyen82.jpeg')}}">
-                            <div class="card-body">
-                                <h5>This is a wider card with supporting text below</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Accusantium
-                                    aliquam culpa cupiditate deserunt earum expedita fugit illo laudantium nesciunt odit
-                                    praesentium, quas quibusdam, reprehenderit sapiente soluta suscipit vel, vitae
-                                    voluptates?</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card mb-3 box-shadow">
-                        <a href="#">
-                            <img class="card-img-top" alt="" src="{{asset('public/uploads/truyen/truyen82.jpeg')}}">
-                            <div class="card-body">
-                                <h5>This is a wider card with supporting text below</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Accusantium
-                                    aliquam culpa cupiditate deserunt earum expedita fugit illo laudantium nesciunt odit
-                                    praesentium, quas quibusdam, reprehenderit sapiente soluta suscipit vel, vitae
-                                    voluptates?</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
 

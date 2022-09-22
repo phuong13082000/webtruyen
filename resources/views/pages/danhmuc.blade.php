@@ -3,7 +3,7 @@
 @section('content')
     <!--Sach-moi-->
     <div class="p-3">
-
+            <h5>{{ $tendanhmuc }}</h5>
         <div class="album py-5 bg-light">
             <div class="row">
                 @php

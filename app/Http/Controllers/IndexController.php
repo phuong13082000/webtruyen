@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chapter;
 use App\Models\DanhMucTruyen;
 use App\Models\Truyen;
 use Illuminate\Http\Request;
@@ -12,7 +13,9 @@ class IndexController extends Controller
     {
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
 
-        $truyen = Truyen::orderBy('id', 'DESC')->where('kichhoat', 0)->get();
+        $truyen = Truyen::orderBy('id', 'DESC')
+            ->where('kichhoat', 0)->get();
+
         return view('pages.home')->with(compact('danhmuc', 'truyen'));
     }
 
@@ -21,9 +24,12 @@ class IndexController extends Controller
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
 
         $danhmuc_id = DanhMucTruyen::where('slug', $slug)->first();
-        $truyen = Truyen::orderBy('id', 'DESC')->where('kichhoat', 0)->where('danhmuc_id', $danhmuc_id->id)->get();
+        $tendanhmuc = $danhmuc_id->tendanhmuc;
+        $truyen = Truyen::orderBy('id', 'DESC')
+            ->where('kichhoat', 0)
+            ->where('danhmuc_id', $danhmuc_id->id)->get();
 
-        return view('pages.danhmuc')->with(compact('danhmuc', 'truyen'));
+        return view('pages.danhmuc')->with(compact('danhmuc', 'truyen', 'tendanhmuc'));
     }
 
 
@@ -31,6 +37,18 @@ class IndexController extends Controller
     {
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
 
-        return view('pages.truyen')->with(compact('danhmuc'));
+        $truyen = Truyen::with('danhmuctruyen')
+            ->where('slug_truyen', $slug)
+            ->where('kichhoat', 0)->first();
+
+        $chapter = Chapter::with('truyen')
+            ->orderBy('id', 'DESC')
+            ->where('truyen_id', $truyen->id)->get();
+
+        $truyen_cungdanhmuc = Truyen::with('danhmuctruyen')
+            ->where('danhmuc_id', $truyen->danhmuctruyen->id)
+            ->whereNotIn('id',[$truyen->id])->get();    //Lấy tất cả truyện cùng danh mục trừ truyện đang show - WhereNotIn (Nằm trong nhiều)
+
+        return view('pages.truyen')->with(compact('danhmuc', 'truyen', 'chapter','truyen_cungdanhmuc'));
     }
 }
