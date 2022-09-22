@@ -45,10 +45,27 @@ class IndexController extends Controller
             ->orderBy('id', 'DESC')
             ->where('truyen_id', $truyen->id)->get();
 
+        $chapter_dau = Chapter::with('truyen')
+            ->orderBy('id', 'ASC')
+            ->where('truyen_id', $truyen->id)->first();
+
         $truyen_cungdanhmuc = Truyen::with('danhmuctruyen')
             ->where('danhmuc_id', $truyen->danhmuctruyen->id)
-            ->whereNotIn('id',[$truyen->id])->get();    //Lấy tất cả truyện cùng danh mục trừ truyện đang show - WhereNotIn (Nằm trong nhiều)
+            ->whereNotIn('id', [$truyen->id])->get();    //Lấy tất cả truyện cùng danh mục trừ truyện đang show - WhereNotIn (Nằm trong nhiều)
 
-        return view('pages.truyen')->with(compact('danhmuc', 'truyen', 'chapter','truyen_cungdanhmuc'));
+        return view('pages.truyen')->with(compact('danhmuc', 'truyen', 'chapter', 'chapter_dau', 'truyen_cungdanhmuc'));
+    }
+
+    public function xemchapter($slug)
+    {
+        $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
+
+        $truyen = Chapter::where('slug_chapter',$slug)->first();
+
+        $chapter = Chapter::with('truyen')
+            ->where('slug_chapter', $slug)
+            ->where('truyen_id', $truyen->truyen_id)->first();
+
+        return view('pages.chapter')->with(compact('danhmuc', 'chapter'));
     }
 }

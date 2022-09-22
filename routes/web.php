@@ -18,3 +18,4 @@ Route::resource('chapter', ChapterController::class);
 Route::get('/', [IndexController::class, 'home']);
 Route::get('/xem-truyen/{slug}', [IndexController::class, 'xemtruyen']);
 Route::get('/danh-muc/{slug}', [IndexController::class, 'danhmuc']);
+Route::get('/xem-chapter/{slug}', [IndexController::class, 'xemchapter']);

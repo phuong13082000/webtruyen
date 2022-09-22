@@ -33,7 +33,7 @@
                         <li>Số chapter:</li>
                         <li>Số lượt xem:</li>
                         <li><a href="#mucluc">Xem mục lục</a></li>
-                        <li><a href="#" class="btn btn-primary">Đọc online</a></li>
+                        <li><a href="{{ url('xem-chapter/'.$chapter_dau->slug_chapter) }}" class="btn btn-primary">Đọc online</a></li>
                     </ul>
                 </div>
             </div>
