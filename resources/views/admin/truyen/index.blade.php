@@ -3,7 +3,6 @@
 @section('content')
     @include('layouts.nav')
 
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -16,7 +15,7 @@
                             </div>
                         @endif
 
-                        <table class="table table-bordered table-responsive">
+                        <table class="table table-responsive">
                             <thead>
                             <tr>
                                 <th>Hình Ảnh</th>
@@ -38,7 +37,7 @@
 
                                     <td>{{$truyen->tentruyen}}</td>
                                     <td>{{$truyen->slug_truyen}}</td>
-                                    <td>{{$truyen->tomtat}}</td>
+                                    <td>{!! $truyen->tomtat !!}</td>
                                     <td>{{$truyen->tacgia}}</td>
                                     <td>{{$truyen->danhmuctruyen->tendanhmuc}}</td>
                                     <td>{{$truyen->theloai->tentheloai}}</td>
@@ -66,6 +65,6 @@
                 </div>
             </div>
         </div>
-    </div>
+
 
 @endsection

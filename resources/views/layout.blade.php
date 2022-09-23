@@ -63,14 +63,26 @@
                         </li>
 
                     </ul>
-                    <form class="d-flex" action="{{ url('tim-kiem') }}" method="GET">
-                        <input class="form-control me-2" type="search" name="tukhoa" placeholder="Tìm kiếm tác giả, truyện" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+
                 </div>
             </div>
         </nav>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10">
+                    <form autocomplete="off" class="form-inline my-2 my-lg-0" action="{{ url('tim-kiem') }}" method="POST">
+                        @csrf
+                        <input class="form-control mr-sm-2" type="search" id="keywords" name="tukhoa"
+                            placeholder="Tìm kiếm tác giả, truyện" aria-label="Search">
+                        <div id="search_ajax"></div>
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         @yield('slide')
 
@@ -92,28 +104,69 @@
             loop: true,
             margin: 10,
             //nav: true,
-            responsive: {0: {items: 1}, 600: {items: 3}, 1000: {items: 5}}
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
         })
     </script>
 
     <!--script-chọn-chương-chapter-->
     <script type="text/javascript">
-        $('.select-chapter').on('change',function(){
+        $('.select-chapter').on('change', function() {
             var url = $(this).val();
 
-            if(url){
-                window.location =url;
+            if (url) {
+                window.location = url;
             }
             return false;
         });
 
         current_chapter();
+
         function current_chapter() {
             var url = window.location.href;
-            $('.select-chapter').find('option[value="'+url+'"]').attr("selected",true);
+            $('.select-chapter').find('option[value="' + url + '"]').attr("selected", true);
         }
     </script>
-    
+
+    <!--Tìm kiếm nâng cao(ajax)-->
+    <script type="text/javascript">
+        $('#keywords').keyup(function() {
+            var keywords = $(this).val();
+            if (keywords != '') {
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ url('/timkiem-ajax') }}",
+                    method: "POST",
+                    data: {
+                        keywords: keywords,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('#search_ajax').fadeIn();
+                        $('#search_ajax').html(data);
+                    }
+                });
+            } else {
+                $('#search_ajax').fadeOut();
+            }
+        });
+
+        $(document).on('click', '.li_search_ajax', function() {
+            $('#keywords').val($(this).text());
+            $('#search_ajax').fadeOut();
+        });
+    </script>
+
+
 </body>
 
 </html>

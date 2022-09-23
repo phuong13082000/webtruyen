@@ -100,17 +100,39 @@ class IndexController extends Controller
         return view('pages.chapter')->with(compact('danhmuc', 'theloai', 'chapter', 'all_chapter', 'truyen_breadcrumb'));
     }
 
-    public function timkiem()
+    public function timkiem(Request $request)
     {
+        $data = $request->all();
+
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
         $theloai = TheLoai::orderBy('id', 'DESC')->get();
 
-        $tukhoa = $_GET['tukhoa'];
+        $tukhoa = $data['tukhoa'];
+
         $truyen = Truyen::with('danhmuctruyen', 'theloai')
             ->where('tentruyen', 'LIKE', '%' . $tukhoa . '%')
             ->orWhere('tomtat', 'LIKE', '%' . $tukhoa . '%')
             ->orWhere('tacgia', 'LIKE', '%' . $tukhoa . '%')->get();
 
         return view('pages.timkiem')->with(compact('danhmuc', 'truyen', 'theloai', 'tukhoa'));
+    }
+
+    public function timkiem_ajax(Request $request)
+    {
+        $data = $request->all();
+
+        if ($data['keywords']) {
+            $truyen = Truyen::where('kichhoat', 0)
+                ->where('tentruyen', 'LIKE', '%' . $data['keywords'] . '%')
+                ->orwhere('tacgia', 'LIKE', '%' . $data['keywords'] . '%')->get();
+
+            $output = '<ul class="dropdown-menu style="display:block;"></ul>';
+
+            foreach ($truyen as $key => $tr) {
+                $output .= '<li class="li_search_ajax" style="padding: 15px 5px; list-style:none;"><a href="#" style="text-transform:uppercase; color:#000; text-decoration: none;">' . $tr->tentruyen  . '</a></li>';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
     }
 }
