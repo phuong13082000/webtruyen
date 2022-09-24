@@ -12,7 +12,7 @@ class TruyenController extends Controller
 
     public function index()
     {
-        $list_truyen = Truyen::with('danhMucTruyen','theloai')->orderBy('id', 'DESC')->get();
+        $list_truyen = Truyen::with('danhmuctruyen','theloai', 'thuocnhieudanhmuctruyen', 'thuocnhieutheloaitruyen')->orderBy('id', 'DESC')->get();
 
         return view('admin.truyen.index')->with(compact('list_truyen'));
     }
@@ -34,6 +34,7 @@ class TruyenController extends Controller
                 'tacgia' => 'required|max:255',
                 'hinhanh' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
                 'tomtat' => 'required',
+                'tukhoa' => 'required',
                 'kichhoat' => 'required',
                 'danhmuc' => 'required',
                 'theloai' => 'required',
@@ -43,6 +44,7 @@ class TruyenController extends Controller
                 'unique.tentruyen' => 'Đã có tên truyện, vui lòng đổi tên khác!',
                 'tacgia.required' => 'Vui lòng nhập tên tác giả!',
                 'tomtat.required' => 'Vui lòng nhập tóm tắt!',
+                'tukhoa.required' => 'Vui lòng nhập từ khóa!',
                 'hinhanh.required' => 'Không có ảnh!',
                 'hinhanh.image' => 'Đây không phải ảnh, hoặc ảnh bị lỗi!',
                 'hinhanh.mimes' => 'Ảnh có định dạng không phù hợp!',
@@ -54,10 +56,21 @@ class TruyenController extends Controller
         $truyen->tentruyen = $data['tentruyen'];
         $truyen->slug_truyen = $data['slug_truyen'];
         $truyen->tomtat = $data['tomtat'];
+        $truyen->tukhoa = $data['tukhoa'];
         $truyen->tacgia = $data['tacgia'];
         $truyen->kichhoat = $data['kichhoat'];
         $truyen->danhmuc_id = $data['danhmuc'];
         $truyen->theloai_id = $data['theloai'];
+
+        //lấy 1 danh mục gán vào table truyen
+        foreach($data['danhmuc'] as $key => $danh){
+            $truyen->danhmuc_id = $danh[0];
+        }
+
+        //lấy 1 thể loaị gán vào table truyen
+        foreach($data['theloai'] as $key => $the){
+            $truyen->theloai_id = $the[0];
+        }
 
         //them anh vao folder hinh
         $get_image = $request->hinhanh;
@@ -69,6 +82,10 @@ class TruyenController extends Controller
 
         $truyen->hinhanh = $new_image;
         $truyen->save();
+
+        $truyen->thuocnhieudanhmuctruyen()->attach($data['danhmuc']);
+        $truyen->thuocnhieutheloaitruyen()->attach($data['theloai']);
+
         return redirect()->back()->with('status', 'Thêm truyện thành công!');
     }
 
@@ -83,7 +100,10 @@ class TruyenController extends Controller
         $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
         $theloai = TheLoai::orderBy('id', 'DESC')->get();
 
-        return view('admin.truyen.edit')->with(compact('truyen', 'danhmuc', 'theloai'));
+        $thuocdanhmuc = $truyen->thuocnhieudanhmuctruyen;
+        $thuoctheloai = $truyen->thuocnhieutheloaitruyen;
+
+        return view('admin.truyen.edit')->with(compact('truyen', 'danhmuc', 'theloai', 'thuocdanhmuc', 'thuoctheloai'));
     }
 
     public function update(Request $request, $id)
@@ -94,6 +114,7 @@ class TruyenController extends Controller
                 'slug_truyen' => 'required|max:255',
                 'tomtat' => 'required',
                 'tacgia' => 'required',
+                'tukhoa' => 'required',
                 'kichhoat' => 'required',
                 'danhmuc' => 'required',
                 'theloai' => 'required',
@@ -102,6 +123,7 @@ class TruyenController extends Controller
                 'tentruyen.required' => 'Vui lòng nhập tên truyện!',
                 'tomtat.required' => 'Vui lòng nhập tóm tắt!',
                 'tacgia.required' => 'Vui lòng nhập tên tác giả!',
+                'tukhoa.required' => 'Vui lòng nhập tên từ khóa!',
             ]
         );
         $truyen = Truyen::find($id);
@@ -109,10 +131,20 @@ class TruyenController extends Controller
         $truyen->slug_truyen = $data['slug_truyen'];
         $truyen->tomtat = $data['tomtat'];
         $truyen->tacgia = $data['tacgia'];
+        $truyen->tukhoa = $data['tukhoa'];
         $truyen->kichhoat = $data['kichhoat'];
         $truyen->danhmuc_id = $data['danhmuc'];
         $truyen->theloai_id = $data['theloai'];
 
+        //lấy 1 danh mục gán vào table truyen
+        foreach($data['danhmuc'] as $key => $danh){
+            $truyen->danhmuc_id = $danh[0];
+        }
+
+        //lấy 1 thể loaị gán vào table truyen
+        foreach($data['theloai'] as $key => $the){
+            $truyen->theloai_id = $the[0];
+        }
         //them anh vao folder hinh
         $get_image = $request->hinhanh;
         $path = 'public/uploads/truyen/' . $truyen->hinhanh;
@@ -129,6 +161,10 @@ class TruyenController extends Controller
             $truyen->hinhanh = $new_image;
         }
         $truyen->save();
+
+        $truyen->thuocnhieudanhmuctruyen()->sync($data['danhmuc']);
+        $truyen->thuocnhieutheloaitruyen()->sync($data['theloai']);
+
         return redirect()->back()->with('status', 'Cập nhật truyện thành công!');
     }
 

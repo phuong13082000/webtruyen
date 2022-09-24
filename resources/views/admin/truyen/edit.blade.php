@@ -36,44 +36,73 @@
                                     <input type="text" class="form-control" id="slug" name="tentruyen"
                                         onkeyup="ChangeToSlug();" value="{{ $truyen->tentruyen }}">
                                 </div>
+                            </div>
 
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Slug truyện</label>
                                     <input type="text" class="form-control" id="convert_slug" name="slug_truyen"
                                         value="{{ $truyen->slug_truyen }}">
                                 </div>
+                            </div>
 
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Tóm tắt truyện</label>
                                     <textarea class="form-control" name="tomtat" id="desc_truyen">{{ $truyen->tomtat }}</textarea>
                                 </div>
+                            </div>
 
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Tác giả</label>
                                     <input type="text" class="form-control" id="tacgia" name="tacgia"
                                         value="{{ $truyen->tacgia }}">
                                 </div>
+                            </div>
 
+                            <div class="mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Danh mục truyện</label>
-                                    <select name="danhmuc" class="form-select" aria-label="Default select example">
-                                        @foreach ($danhmuc as $key => $muc)
-                                            <option {{ $muc->id == $truyen->danhmuc_id ? 'selected' : '' }}
-                                                value="{{ $muc->id }}">{{ $muc->tendanhmuc }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label class="form-label">Từ khóa</label>
+                                    <input type="text" class="form-control" id="tukhoa" name="tukhoa"
+                                        value="{{ $truyen->tukhoa }}">
                                 </div>
+                            </div>
 
+                            <div class="mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Thể loại truyện</label>
-                                    <select name="theloai" class="form-select" aria-label="Default select example">
-                                        @foreach ($theloai as $key => $the)
-                                            <option {{ $the->id == $truyen->theloai_id ? 'selected' : '' }}
-                                                value="{{ $the->id }}">{{ $the->tentheloai }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                    <label class="form-label">Danh mục truyện:</label><br>
+                                    @foreach ($thuocdanhmuc as $thuocdanh)
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" {{ $thuocdanh->id ? 'checked' : '' }}
+                                                name="danhmuc[]" id="danhmuc_{{ $thuocdanh->id }}" class="form-check-input"
+                                                value="{{ $thuocdanh->id }}">
+                                            <label for="danhmuc_{{ $thuocdanh->id }}"
+                                                class="form-check-lable">{{ $thuocdanh->tendanhmuc }}</label>
+                                        </div>
+                                    @endforeach
 
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Thể loại truyện:</label><br>
+
+                                    @foreach ($thuoctheloai as $key => $thuocloai)
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" {{ $thuocloai->id ? 'checked' : '' }} name="theloai[]"
+                                                id="theloai_{{ $thuocloai->id }}" class="form-check-input"
+                                                value="{{ $thuocloai->id }}">
+                                            <label for="theloai_{{ $thuocloai->id }}"
+                                                class="form-check-lable">{{ $thuocloai->tentheloai }}</label>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Hình ảnh truyện</label>
                                     <input type="file" class="form-control" id="inputGroupFile02" name="hinhanh">
@@ -81,7 +110,9 @@
                                         weight="150px">
 
                                 </div>
+                            </div>
 
+                            <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Kích Hoạt</label>
                                     <select name="kichhoat" class="form-select" aria-label="Default select example">
@@ -94,14 +125,15 @@
                                         @endif
                                     </select>
                                 </div>
-
                             </div>
-                            <button type="submit" name="edittruyen" class="btn btn-primary">Cập Nhật</button>
-                        </form>
 
                     </div>
+                    <button type="submit" name="edittruyen" class="btn btn-primary">Cập Nhật</button>
+                    </form>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

@@ -35,7 +35,7 @@
                                 <td>{{$chap->tieude}}</td>
                                 <td>{{$chap->slug_chapter}}</td>
                                 <td>{{$chap->tomtat}}</td>
-                                <td>{{$chap->noidung}}</td>
+                                <td>{!! $chap->noidung !!}</td>
                                 <td>{{$chap->truyen->tentruyen}}</td>
                                 <td>
                                     @if ($chap->kichhoat==0)

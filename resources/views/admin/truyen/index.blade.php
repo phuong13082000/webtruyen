@@ -22,6 +22,7 @@
                                 <th>Tên Truyện</th>
                                 <th>Slug</th>
                                 <th>Tóm tắt</th>
+                                <th>Từ khóa</th>
                                 <th>Tác giả</th>
                                 <th>Danh Mục</th>
                                 <th>Thể Loại</th>
@@ -38,9 +39,18 @@
                                     <td>{{$truyen->tentruyen}}</td>
                                     <td>{{$truyen->slug_truyen}}</td>
                                     <td>{!! $truyen->tomtat !!}</td>
+                                    <td>{{$truyen->tukhoa}}</td>
                                     <td>{{$truyen->tacgia}}</td>
-                                    <td>{{$truyen->danhmuctruyen->tendanhmuc}}</td>
-                                    <td>{{$truyen->theloai->tentheloai}}</td>
+                                    <td>
+                                        @foreach ($truyen->thuocnhieudanhmuctruyen as $thuocdanh )
+                                            <span>{{ $thuocdanh->tendanhmuc }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($truyen->thuocnhieutheloaitruyen as $thuocloai )
+                                            <span>{{ $thuocloai->tentheloai }}</span>
+                                        @endforeach
+                                    </td>
                                     <td>
                                         @if ($truyen->kichhoat==0)
                                             <span class="text text-success">Có</span>

@@ -16,7 +16,8 @@ class IndexController extends Controller
         $theloai = TheLoai::orderBy('id', 'DESC')->get();
         $slide_truyen =  Truyen::orderBy('id', 'DESC')->where('kichhoat', 0)->take(8)->get();
 
-        $truyen = Truyen::orderBy('id', 'DESC')
+        $truyen = Truyen::with('thuocnhieudanhmuctruyen','thuocnhieutheloaitruyen')
+            ->orderBy('id', 'DESC')
             ->where('kichhoat', 0)->get();
 
         return view('pages.home')->with(compact('danhmuc', 'theloai', 'truyen', 'slide_truyen'));
@@ -134,5 +135,22 @@ class IndexController extends Controller
             $output .= '</ul>';
             echo $output;
         }
+    }
+
+    public function tag($tag)
+    {
+        $danhmuc = DanhMucTruyen::orderBy('id', 'DESC')->get();
+        $theloai = TheLoai::orderBy('id', 'DESC')->get();
+
+        $tags = explode("-", $tag);
+
+        $truyen = Truyen::with('danhmuctruyen', 'theloai')
+            ->where(function ($query) use ($tags) {
+                for ($i = 0; $i < count($tags); $i++) {
+                    $query->orWhere('tukhoa', 'LIKE', '%' . $tags[$i] . '%');
+                }
+            })->paginate(12);
+
+        return view('pages.tag')->with(compact('danhmuc', 'truyen', 'theloai', 'tag'));
     }
 }

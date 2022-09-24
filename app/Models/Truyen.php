@@ -13,6 +13,7 @@ class Truyen extends Model
     protected $fillable = [
         'tentruyen',
         'tomtat',
+        'tukhoa',
         'tacgia',
         'kichhoat',
         'slug_truyen',
@@ -23,7 +24,7 @@ class Truyen extends Model
     protected $primaryKey = 'id';
     protected $table = 'truyen';
 
-    public function danhMucTruyen()
+    public function danhmuctruyen()
     {
         return $this->belongsTo('App\Models\DanhMucTruyen', 'danhmuc_id', 'id');
     }
@@ -36,5 +37,15 @@ class Truyen extends Model
     public function chapter()
     {
         return $this->hasMany('App\Models\Chapter', 'truyen_id', 'id');
+    }
+
+    public function thuocnhieudanhmuctruyen()
+    {
+        return $this->belongsToMany(DanhMucTruyen::class, 'thuocdanh', 'truyen_id', 'danhmuc_id');
+    }
+
+    public function thuocnhieutheloaitruyen()
+    {
+        return $this->belongsToMany(TheLoai::class, 'thuocloai', 'truyen_id', 'theloai_id');
     }
 }

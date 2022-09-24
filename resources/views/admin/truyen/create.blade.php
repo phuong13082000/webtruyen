@@ -61,6 +61,14 @@
 
                             <div class="mb-3">
                                 <div class="form-group">
+                                    <label class="form-label">Từ khóa</label>
+                                    <input type="text" class="form-control" id="tukhoa" name="tukhoa"
+                                        value="{{ old('tukhoa') }}">
+                                </div>
+                            </div>
+                            <!--
+                            <div class="mb-3">
+                                <div class="form-group">
                                     <label class="form-label">Danh mục truyện</label>
                                     <select name="danhmuc" class="form-select" aria-label="Default select example">
                                         @foreach ($danhmuc as $key => $muc)
@@ -78,6 +86,35 @@
                                             <option value="{{ $the->id }}">{{ $the->tentheloai }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            -->
+
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Danh mục truyện:</label><br>
+                                    
+                                        @foreach ($danhmuc as $key => $muc)
+                                            <div class="form-check form-check-inline">
+                                                <input type="checkbox" name="danhmuc[]" id="danhmuc_{{ $muc->id }}" class="form-check-input" value="{{ $muc->id }}">
+                                                <label for="danhmuc_{{ $muc->id }}" class="form-check-lable">{{ $muc->tendanhmuc }}</label>
+                                            </div>
+                                        @endforeach
+                                    
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Thể loại truyện:</label><br>
+                                    
+                                        @foreach ($theloai as $key => $the)
+                                            <div class="form-check form-check-inline">
+                                                <input type="checkbox" name="theloai[]" id="theloai_{{ $the->id }}" class="form-check-input" value="{{ $the->id }}">
+                                                <label for="theloai_{{ $the->id }}" class="form-check-lable">{{ $the->tentheloai }}</label>
+                                            </div>
+                                        @endforeach
+                                    
                                 </div>
                             </div>
 

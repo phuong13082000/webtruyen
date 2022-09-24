@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 22, 2022 at 03:35 PM
+-- Generation Time: Sep 24, 2022 at 05:36 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -177,6 +177,52 @@ INSERT INTO `theloai` (`id`, `tentheloai`, `slug`, `mota`, `kichhoat`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `thuocdanh`
+--
+
+DROP TABLE IF EXISTS `thuocdanh`;
+CREATE TABLE IF NOT EXISTS `thuocdanh` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `truyen_id` int NOT NULL,
+  `danhmuc_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `truyen_id` (`truyen_id`),
+  KEY `danhmuc_id` (`danhmuc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `thuocdanh`
+--
+
+INSERT INTO `thuocdanh` (`id`, `truyen_id`, `danhmuc_id`) VALUES
+(10, 5, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `thuocloai`
+--
+
+DROP TABLE IF EXISTS `thuocloai`;
+CREATE TABLE IF NOT EXISTS `thuocloai` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `truyen_id` int NOT NULL,
+  `theloai_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `truyen_id` (`truyen_id`),
+  KEY `theloai_id` (`theloai_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `thuocloai`
+--
+
+INSERT INTO `thuocloai` (`id`, `truyen_id`, `theloai_id`) VALUES
+(1, 5, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `truyen`
 --
 
@@ -184,13 +230,19 @@ DROP TABLE IF EXISTS `truyen`;
 CREATE TABLE IF NOT EXISTS `truyen` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `tentruyen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tukhoa` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `tomtat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tacgia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `danhmuc_id` int NOT NULL,
-  `theloai_id` int NOT NULL,
+  `danhmuc_id` int DEFAULT NULL,
+  `theloai_id` int DEFAULT NULL,
   `hinhanh` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug_truyen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `kichhoat` int NOT NULL,
+  `views` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tinhtrang` int NOT NULL DEFAULT '0',
+  `loaitruyen` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `truyen_noibat` int NOT NULL DEFAULT '0',
+  `hoanthien` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `danhmuc_id` (`danhmuc_id`),
   KEY `theloai_id` (`theloai_id`)
@@ -200,8 +252,8 @@ CREATE TABLE IF NOT EXISTS `truyen` (
 -- Dumping data for table `truyen`
 --
 
-INSERT INTO `truyen` (`id`, `tentruyen`, `tomtat`, `tacgia`, `danhmuc_id`, `theloai_id`, `hinhanh`, `slug_truyen`, `kichhoat`) VALUES
-(5, 'Anh đã làm chuyện đó với ai', '<p>chua co tom tat</p>', 'Hoàng Phương', 7, 1, 'truyen23.jpeg', 'anh-da-lam-chuyen-do-voi-ai', 0);
+INSERT INTO `truyen` (`id`, `tentruyen`, `tukhoa`, `tomtat`, `tacgia`, `danhmuc_id`, `theloai_id`, `hinhanh`, `slug_truyen`, `kichhoat`, `views`, `tinhtrang`, `loaitruyen`, `truyen_noibat`, `hoanthien`) VALUES
+(5, 'Anh đã làm chuyện đó với ai', 'Anh đã làm chuyện đó với ai, Ai đã làm chuyện đó với anh', '<p>chua co tom tat</p>', 'Hoàng Phương', 8, 1, 'truyen23.jpeg', 'anh-da-lam-chuyen-do-voi-ai', 0, '', 0, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
