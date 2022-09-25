@@ -1,6 +1,6 @@
 <!--Slider-->
 
-<div class="p-3">
+<div class="slider p-3">
     <h3>Sách nên đọc</h3>
     <div class="owl-carousel owl-theme">
         @foreach ($slide_truyen as $key => $slide)

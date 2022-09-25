@@ -9,7 +9,13 @@ class Truyen extends Model
 {
     use HasFactory;
 
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
+
     public $timestamps = false;
+
     protected $fillable = [
         'tentruyen',
         'tomtat',
@@ -20,7 +26,10 @@ class Truyen extends Model
         'hinhanh',
         'danhmuc_id',
         'theloai_id',
+        'created_at',
+        'updated_at',
     ];
+    
     protected $primaryKey = 'id';
     protected $table = 'truyen';
 

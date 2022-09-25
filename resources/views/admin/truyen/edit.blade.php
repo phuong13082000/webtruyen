@@ -71,14 +71,16 @@
 
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Danh mục truyện:</label><br>
-                                    @foreach ($thuocdanhmuc as $thuocdanh)
+                                    <label class="form-label">Danh mục truyện: </label><br>
+                                    @foreach ($danhmuc as $dm)
                                         <div class="form-check form-check-inline">
-                                            <input type="checkbox" {{ $thuocdanh->id ? 'checked' : '' }}
-                                                name="danhmuc[]" id="danhmuc_{{ $thuocdanh->id }}" class="form-check-input"
-                                                value="{{ $thuocdanh->id }}">
-                                            <label for="danhmuc_{{ $thuocdanh->id }}"
-                                                class="form-check-lable">{{ $thuocdanh->tendanhmuc }}</label>
+                                            @foreach ($thuocdanhmuc as $thuocdanh)
+                                                <input type="checkbox" {{ $thuocdanh->id ? 'checked' : '' }}
+                                                    name="danhmuc[]" id="danhmuc_{{ $dm->id }}"
+                                                    class="form-check-input" value="{{ $dm->id }}">
+                                            @endforeach
+                                            <label for="danhmuc_{{ $dm->id }}"
+                                                class="form-check-lable">{{ $dm->tendanhmuc }}</label>
                                         </div>
                                     @endforeach
 
@@ -88,14 +90,15 @@
                             <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Thể loại truyện:</label><br>
-
-                                    @foreach ($thuoctheloai as $key => $thuocloai)
+                                    @foreach ($theloai as $tl)
                                         <div class="form-check form-check-inline">
-                                            <input type="checkbox" {{ $thuocloai->id ? 'checked' : '' }} name="theloai[]"
-                                                id="theloai_{{ $thuocloai->id }}" class="form-check-input"
-                                                value="{{ $thuocloai->id }}">
-                                            <label for="theloai_{{ $thuocloai->id }}"
-                                                class="form-check-lable">{{ $thuocloai->tentheloai }}</label>
+                                            @foreach ($thuoctheloai as $thuocloai)
+                                                <input type="checkbox" {{ $thuocloai->id ? 'checked' : '' }}
+                                                    name="theloai[]" id="theloai_{{ $tl->id }}"
+                                                    class="form-check-input" value="{{ $tl->id }}">
+                                            @endforeach
+                                            <label for="theloai_{{ $tl->id }}"
+                                                class="form-check-lable">{{ $tl->tentheloai }}</label>
                                         </div>
                                     @endforeach
 

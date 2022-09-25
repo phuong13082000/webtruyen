@@ -27,6 +27,8 @@
                                 <th>Danh Mục</th>
                                 <th>Thể Loại</th>
                                 <th>Kích Hoạt</th>
+                                <th>Ngày Tạo</th>
+                                <th>Ngày Cập Nhật</th>
                                 <th>Quản Lý</th>
                             </tr>
                             </thead>
@@ -43,12 +45,12 @@
                                     <td>{{$truyen->tacgia}}</td>
                                     <td>
                                         @foreach ($truyen->thuocnhieudanhmuctruyen as $thuocdanh )
-                                            <span>{{ $thuocdanh->tendanhmuc }}</span>
+                                            <span class="badge bg-primary">{{ $thuocdanh->tendanhmuc }}</span><br>
                                         @endforeach
                                     </td>
                                     <td>
                                         @foreach ($truyen->thuocnhieutheloaitruyen as $thuocloai )
-                                            <span>{{ $thuocloai->tentheloai }}</span>
+                                            <span class="badge bg-warning">{{ $thuocloai->tentheloai }}</span><br>
                                         @endforeach
                                     </td>
                                     <td>
@@ -56,6 +58,16 @@
                                             <span class="text text-success">Có</span>
                                         @else
                                             <span class="text text-danger">Không</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $truyen->created_at }} <br> 
+                                        <p>{{ $truyen->created_at->diffForHumans() }}</p>
+                                    </td>
+                                    <td>
+                                        @if ($truyen->updated_at != '')
+                                        {{ $truyen->updated_at }} <br> 
+                                        <p>{{ $truyen->updated_at->diffForHumans() }}</p>
                                         @endif
                                     </td>
                                     <td>

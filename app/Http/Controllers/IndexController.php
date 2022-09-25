@@ -127,10 +127,10 @@ class IndexController extends Controller
                 ->where('tentruyen', 'LIKE', '%' . $data['keywords'] . '%')
                 ->orwhere('tacgia', 'LIKE', '%' . $data['keywords'] . '%')->get();
 
-            $output = '<ul class="dropdown-menu style="display:block;"></ul>';
+            $output = '<ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="display:block;">';
 
             foreach ($truyen as $key => $tr) {
-                $output .= '<li class="li_search_ajax" style="padding: 15px 5px; list-style:none;"><a href="#" style="text-transform:uppercase; color:#000; text-decoration: none;">' . $tr->tentruyen  . '</a></li>';
+                $output .= '<li class="li_search_ajax"><a class="dropdown-item" href="#">' . $tr->tentruyen  . '</a></li>';
             }
             $output .= '</ul>';
             echo $output;

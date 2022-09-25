@@ -106,22 +106,28 @@
                 </div>
                 <div class="col-md-9">
                     <ul class="infotruyen">
-                        <li>
-                            <h3>{{ $truyen->tentruyen }}</h3>
-                        </li>
+                        <li><h3>{{ $truyen->tentruyen }}</h3></li>
+
                         <li>Tác giả: {{ $truyen->tacgia }}</li>
+
                         <li>Danh mục:
                             @foreach ($truyen->thuocnhieudanhmuctruyen as $thuocdanh)
-                                <span>{{ $thuocdanh->tendanhmuc }}</span>
+                                <a href="{{ url('danh-muc/'.$thuocdanh->slug) }}"><span class="badge bg-primary">{{ $thuocdanh->tendanhmuc }}</span></a>
                             @endforeach
                         </li>
+
                         <li>Thể loại:
                             @foreach ($truyen->thuocnhieutheloaitruyen as $thuocloai)
-                                <span>{{ $thuocloai->tentheloai }}</span>
+                                <a href="{{ url('the-loai/'.$thuocloai->slug) }}"><span class="badge bg-warning">{{ $thuocloai->tentheloai }}</span></a>
                             @endforeach
                         </li>
+
                         <li>Số chapter: {{ $mucluc }}</li>
+
+                        <li>Ngày đăng: {{ $truyen->created_at->diffForHumans() }}</li>
+
                         <li>Số lượt xem:</li>
+
                         <li><a href="#mucluc">Xem mục lục</a></li>
 
                         @if ($chapter_dau)
@@ -131,6 +137,7 @@
                         @else
                             <li><a href="#" class="btn btn-primary">Đang cập nhật</a></li>
                         @endif
+
                     </ul>
                 </div>
             </div>
