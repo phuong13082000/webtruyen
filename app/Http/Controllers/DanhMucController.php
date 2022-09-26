@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DanhMucRequest;
 use App\Models\DanhMucTruyen;
 use Illuminate\Http\Request;
 
@@ -18,20 +19,9 @@ class DanhMucController extends Controller
         return view('admin.danhmuc.create');
     }
 
-    public function store(Request $request)
+    public function store(DanhMucRequest $request)
     {
-        $data = $request->validate([
-            'tendanhmuc' =>'required|unique:danhmuc|max:255',
-            'slug' =>'required|max:255',
-            'mota'=>'required|max:255',
-            'kichhoat'=>'required',
-        ],
-            [
-                'tendanhmuc.required'=>'Vui lòng nhập tên danh mục!',
-                'unique.tendanhmuc'=>'Đã có tên danh mục, vui lòng đổi tên khác!',
-                'mota.required'=>'Vui lòng nhập mô tả!',
-            ]
-        );
+        $data = $request->all();
         $danhMucTruyen = new DanhMucTruyen();
         $danhMucTruyen->tendanhmuc = $data['tendanhmuc'];
         $danhMucTruyen->slug = $data['slug'];
@@ -39,7 +29,7 @@ class DanhMucController extends Controller
         $danhMucTruyen->kichhoat = $data['kichhoat'];
 
         $danhMucTruyen->save();
-        return redirect()->back()->with('status','Thêm danh mục thành công!');
+        return redirect()->route('danhmuc.index')->with('status','Thêm danh mục thành công!');
 
     }
 
@@ -56,17 +46,7 @@ class DanhMucController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'tendanhmuc' =>'required||max:255',
-            'slug' =>'required||max:255',
-            'mota'=>'required|max:255',
-            'kichhoat'=>'required',
-        ],
-            [
-                'tendanhmuc.required'=>'Vui lòng nhập tên danh mục!',
-                'mota.required'=>'Vui lòng nhập mô tả!',
-            ]
-        );
+        $data = $request->all();
         $danhMucTruyen = DanhMucTruyen::find($id);
         $danhMucTruyen->tendanhmuc = $data['tendanhmuc'];
         $danhMucTruyen->slug = $data['slug'];
@@ -74,13 +54,12 @@ class DanhMucController extends Controller
         $danhMucTruyen->kichhoat = $data['kichhoat'];
 
         $danhMucTruyen->save();
-        return redirect()->back()->with('status','Cập nhật danh mục thành công!');
+        return redirect()->route('danhmuc.index')->with('status','Cập nhật danh mục thành công!');
     }
 
     public function destroy($id)
     {
         DanhMucTruyen::find($id)->delete();
-        return redirect()->back()->with('status','Xóa danh mục thành công!');
-
+        return redirect()->route('danhmuc.index')->with('status','Xóa danh mục thành công!');
     }
 }

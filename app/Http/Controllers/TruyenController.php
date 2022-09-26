@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TruyenRequest;
 use App\Models\DanhMucTruyen;
 use App\Models\TheLoai;
 use App\Models\Truyen;
@@ -28,33 +29,9 @@ class TruyenController extends Controller
         return view('admin.truyen.create')->with(compact('danhmuc', 'theloai'));
     }
 
-    public function store(Request $request)
+    public function store(TruyenRequest $request)
     {
-        $data = $request->validate(
-            [
-                'tentruyen' => 'required|unique:truyen|max:255',
-                'slug_truyen' => 'required|max:255',
-                'tacgia' => 'required|max:255',
-                'hinhanh' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
-                'tomtat' => 'required',
-                'tukhoa' => 'required',
-                'kichhoat' => 'required',
-                'danhmuc' => 'required',
-                'theloai' => 'required',
-            ],
-            [
-                'tentruyen.required' => 'Vui lòng nhập tên truyện!',
-                'unique.tentruyen' => 'Đã có tên truyện, vui lòng đổi tên khác!',
-                'tacgia.required' => 'Vui lòng nhập tên tác giả!',
-                'tomtat.required' => 'Vui lòng nhập tóm tắt!',
-                'tukhoa.required' => 'Vui lòng nhập từ khóa!',
-                'hinhanh.required' => 'Không có ảnh!',
-                'hinhanh.image' => 'Đây không phải ảnh, hoặc ảnh bị lỗi!',
-                'hinhanh.mimes' => 'Ảnh có định dạng không phù hợp!',
-                'hinhanh.max' => 'Ảnh có kích thước vượt quá 2mb!',
-                'hinhanh.dimensions' => 'Vượt quá yêu cầu ảnh!',
-            ]
-        );
+        $data = $request->all();
         $truyen = new Truyen();
         $truyen->tentruyen = $data['tentruyen'];
         $truyen->slug_truyen = $data['slug_truyen'];
@@ -62,7 +39,6 @@ class TruyenController extends Controller
         $truyen->tukhoa = $data['tukhoa'];
         $truyen->tacgia = $data['tacgia'];
         $truyen->kichhoat = $data['kichhoat'];
-        $truyen->views = $data['views'];
 
         $truyen->created_at = Carbon::now('Asia/Ho_Chi_Minh');
 
@@ -112,27 +88,8 @@ class TruyenController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->validate(
-            [
-                'tentruyen' => 'required|max:255',
-                'slug_truyen' => 'required|max:255',
-                'tomtat' => 'required',
-                'tacgia' => 'required',
-                'tukhoa' => 'required',
-                'kichhoat' => 'required',
-                'danhmuc' => 'required',
-                'theloai' => 'required',
-                'views' => 'required',
-            ],
-            [
-                'tentruyen.required' => 'Vui lòng nhập tên truyện!',
-                'tomtat.required' => 'Vui lòng nhập tóm tắt!',
-                'tacgia.required' => 'Vui lòng nhập tên tác giả!',
-                'tukhoa.required' => 'Vui lòng nhập tên từ khóa!',
-            ]
-        );
-
         $truyen = Truyen::find($id);
+        $data = $request->all();
 
         $truyen->thuocnhieudanhmuctruyen()->sync($data['danhmuc']);
         $truyen->thuocnhieutheloaitruyen()->sync($data['theloai']);
@@ -141,7 +98,6 @@ class TruyenController extends Controller
         $truyen->slug_truyen = $data['slug_truyen'];
         $truyen->tomtat = $data['tomtat'];
         $truyen->tacgia = $data['tacgia'];
-        $truyen->views = $data['views'];
         $truyen->tukhoa = $data['tukhoa'];
         $truyen->kichhoat = $data['kichhoat'];
 

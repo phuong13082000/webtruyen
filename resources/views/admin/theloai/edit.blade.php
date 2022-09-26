@@ -32,7 +32,7 @@
                             <div class="mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Tên Thể Loại</label>
-                                    <input type="text" class="form-control" id="slug" name="tendanhmuc"
+                                    <input type="text" class="form-control" id="slug" name="tentheloai"
                                            onkeyup="ChangeToSlug();" value="{{$theloai->tentheloai}}">
                                 </div>
                                 <div class="form-group">

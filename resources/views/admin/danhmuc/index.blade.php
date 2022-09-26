@@ -15,6 +15,19 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    <div class="mb-3">
+                        <a href="{{ route('danhmuc.create') }}" type="button" class="btn btn-primary">Thêm</a>
+                    </div>  
 
                     <table class="table table-bordered table-responsive">
                         <thead>
