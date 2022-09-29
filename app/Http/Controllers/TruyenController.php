@@ -52,7 +52,7 @@ class TruyenController extends Controller
             $truyen->theloai_id = $the[0];
         }
 
-        //them anh vao folder hinh
+        //thêm ảnh vào thư mục hình
         $get_image = $request->hinhanh;
         $path = 'public/uploads/truyen/';
         $get_name_image = $get_image->getClientOriginalName();
@@ -112,7 +112,7 @@ class TruyenController extends Controller
         foreach ($data['theloai'] as $key => $the) {
             $truyen->theloai_id = $the[0];
         }
-        
+
         //them anh vao folder hinh
         $get_image = $request->hinhanh;
         $path = 'public/uploads/truyen/' . $truyen->hinhanh;

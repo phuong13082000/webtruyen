@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 24, 2022 at 05:36 PM
+-- Generation Time: Sep 29, 2022 at 05:26 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `danhmuc` (
   `mota` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `kichhoat` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `danhmuc`
@@ -70,7 +70,9 @@ CREATE TABLE IF NOT EXISTS `danhmuc` (
 
 INSERT INTO `danhmuc` (`id`, `tendanhmuc`, `slug`, `mota`, `kichhoat`) VALUES
 (7, 'Truyện Trinh Thám', 'truyen-trinh-tham', 'Truyện trinh thám sưu tầm', 0),
-(8, 'Truyện 18+', 'truyen-18', 'Truyện 18+ sưu tầm', 0);
+(8, 'Truyện 18+', 'truyen-18', 'Truyện 18+ sưu tầm', 0),
+(9, 'Truyện Anime', 'truyen-anime', 'anime', 0),
+(11, 'Truyện Tình Cảm', 'truyen-tinh-cam', 'truyen tinh cam', 0);
 
 -- --------------------------------------------------------
 
@@ -103,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -113,7 +115,45 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2022_09_29_225837_create_permission_tables', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_permissions`
+--
+
+DROP TABLE IF EXISTS `model_has_permissions`;
+CREATE TABLE IF NOT EXISTS `model_has_permissions` (
+  `permission_id` bigint UNSIGNED NOT NULL,
+  `model_type` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_roles`
+--
+
+DROP TABLE IF EXISTS `model_has_roles`;
+CREATE TABLE IF NOT EXISTS `model_has_roles` (
+  `role_id` bigint UNSIGNED NOT NULL,
+  `model_type` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `model_has_roles`
+--
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+(1, 'App\\Models\\User', 1);
 
 -- --------------------------------------------------------
 
@@ -128,6 +168,33 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+DROP TABLE IF EXISTS `permissions`;
+CREATE TABLE IF NOT EXISTS `permissions` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'add', 'web', '2022-09-29 16:38:58', '2022-09-29 16:38:58'),
+(2, 'edit', 'web', '2022-09-29 16:38:58', '2022-09-29 16:38:58'),
+(3, 'watch', 'web', '2022-09-29 16:38:58', '2022-09-29 16:38:58'),
+(4, 'delete', 'web', '2022-09-29 16:38:58', '2022-09-29 16:38:58');
 
 -- --------------------------------------------------------
 
@@ -154,6 +221,56 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'web', '2022-09-29 16:35:05', '2022-09-29 16:35:05'),
+(2, 'writer', 'web', '2022-09-29 16:41:14', '2022-09-29 16:41:14'),
+(3, 'watcher', 'web', '2022-09-29 16:41:14', '2022-09-29 16:41:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_has_permissions`
+--
+
+DROP TABLE IF EXISTS `role_has_permissions`;
+CREATE TABLE IF NOT EXISTS `role_has_permissions` (
+  `permission_id` bigint UNSIGNED NOT NULL,
+  `role_id` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`permission_id`,`role_id`),
+  KEY `role_has_permissions_role_id_foreign` (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `theloai`
 --
 
@@ -165,14 +282,15 @@ CREATE TABLE IF NOT EXISTS `theloai` (
   `mota` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `kichhoat` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `theloai`
 --
 
 INSERT INTO `theloai` (`id`, `tentheloai`, `slug`, `mota`, `kichhoat`) VALUES
-(1, 'Tình Cảm', 'tinh-cam', 'Tình cảm', 0);
+(1, 'Tình Cảm', 'tinh-cam', 'Tình cảm', 0),
+(2, 'Cặp đôi', 'cap-doi', 'couple', 0);
 
 -- --------------------------------------------------------
 
@@ -188,14 +306,16 @@ CREATE TABLE IF NOT EXISTS `thuocdanh` (
   PRIMARY KEY (`id`),
   KEY `truyen_id` (`truyen_id`),
   KEY `danhmuc_id` (`danhmuc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `thuocdanh`
 --
 
 INSERT INTO `thuocdanh` (`id`, `truyen_id`, `danhmuc_id`) VALUES
-(10, 5, 8);
+(11, 5, 7),
+(13, 5, 8),
+(14, 5, 9);
 
 -- --------------------------------------------------------
 
@@ -211,14 +331,15 @@ CREATE TABLE IF NOT EXISTS `thuocloai` (
   PRIMARY KEY (`id`),
   KEY `truyen_id` (`truyen_id`),
   KEY `theloai_id` (`theloai_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `thuocloai`
 --
 
 INSERT INTO `thuocloai` (`id`, `truyen_id`, `theloai_id`) VALUES
-(1, 5, 1);
+(1, 5, 1),
+(5, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -243,6 +364,8 @@ CREATE TABLE IF NOT EXISTS `truyen` (
   `loaitruyen` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `truyen_noibat` int NOT NULL DEFAULT '0',
   `hoanthien` int NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`),
   KEY `danhmuc_id` (`danhmuc_id`),
   KEY `theloai_id` (`theloai_id`)
@@ -252,8 +375,8 @@ CREATE TABLE IF NOT EXISTS `truyen` (
 -- Dumping data for table `truyen`
 --
 
-INSERT INTO `truyen` (`id`, `tentruyen`, `tukhoa`, `tomtat`, `tacgia`, `danhmuc_id`, `theloai_id`, `hinhanh`, `slug_truyen`, `kichhoat`, `views`, `tinhtrang`, `loaitruyen`, `truyen_noibat`, `hoanthien`) VALUES
-(5, 'Anh đã làm chuyện đó với ai', 'Anh đã làm chuyện đó với ai, Ai đã làm chuyện đó với anh', '<p>chua co tom tat</p>', 'Hoàng Phương', 8, 1, 'truyen23.jpeg', 'anh-da-lam-chuyen-do-voi-ai', 0, '', 0, NULL, 0, 0);
+INSERT INTO `truyen` (`id`, `tentruyen`, `tukhoa`, `tomtat`, `tacgia`, `danhmuc_id`, `theloai_id`, `hinhanh`, `slug_truyen`, `kichhoat`, `views`, `tinhtrang`, `loaitruyen`, `truyen_noibat`, `hoanthien`, `created_at`, `updated_at`) VALUES
+(5, 'Anh đã làm chuyện đó với ai', 'Anh đã làm chuyện đó với ai, Ai đã làm chuyện đó với anh', '<p>chua co tom tat</p>', 'Hoàng Phương', 9, 1, 'truyen23.jpeg', 'anh-da-lam-chuyen-do-voi-ai', 0, '', 0, NULL, 0, 0, '2022-09-25 06:19:08', '2022-09-25 06:19:42');
 
 -- --------------------------------------------------------
 
