@@ -11,13 +11,24 @@ use App\Http\Controllers\TruyenController;
 use App\Http\Controllers\UserController;
 
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('danhmuc', DanhMucController::class);
-Route::resource('theloai', TheLoaiController::class);
-Route::resource('truyen', TruyenController::class);
-Route::resource('chapter', ChapterController::class);
-Route::resource('user', UserController::class);
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::resource('danhmuc', DanhMucController::class);
+    Route::resource('theloai', TheLoaiController::class);
+    Route::resource('truyen', TruyenController::class);
+    Route::resource('chapter', ChapterController::class);
+    Route::resource('user', UserController::class);
+
+    Route::get('/phan-quyen/{id}', [UserController::class, 'phanquyen']);
+    Route::get('/phan-vai-tro/{id}', [UserController::class, 'phanvaitro']);
+    Route::get('/impersonate/user/{id}', [UserController::class, 'impersonate']);
+
+    Route::post('/insert-roles/{id}', [UserController::class, 'insert_roles']);
+    Route::post('/assign-permission/{id}', [UserController::class, 'assign_permission']);
+    Route::post('/insert-permission', [UserController::class, 'insert_permission']);
+
+});
 
 Route::get('/', [IndexController::class, 'home']);
 Route::get('/xem-truyen/{slug}', [IndexController::class, 'xemtruyen']);

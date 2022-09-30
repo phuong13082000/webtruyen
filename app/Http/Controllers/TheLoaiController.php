@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class TheLoaiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:add|edit|watch|delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:add', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $theLoai = TheLoai::orderBy('id', 'DESC')->get();

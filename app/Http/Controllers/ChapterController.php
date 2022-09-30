@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChapterRequest;
 use App\Models\Chapter;
 use App\Models\Truyen;
 use Illuminate\Http\Request;
 
 class ChapterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:add|edit|watch|delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:add', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
-        $chapter = Chapter::with('truyen')->orderBy('id','DESC')->get();
+        $chapter = Chapter::with('truyen')->orderBy('id', 'DESC')->get();
         return view('admin.chapter.index')->with(compact('chapter'));
     }
 
@@ -20,21 +29,9 @@ class ChapterController extends Controller
         return view('admin.chapter.create')->with(compact('truyen'));
     }
 
-    public function store(Request $request)
+    public function store(ChapterRequest $request)
     {
-        $data = $request->validate([
-            'tieude' => 'required|unique:chapter|max:255',
-            'slug_chapter' => 'required|unique:chapter|max:255',
-            'noidung' => 'required',
-            'tomtat' => 'required',
-            'kichhoat' => 'required',
-            'truyen_id' => 'required',
-        ], [
-            'tieude.unique'=>'Đã có tiêu đề, Hãy chọn tiêu đề khác',
-            'tieude.required'=>'Hãy nhập tiêu đề',
-            'noidung.required'=>'Hãy nhập nội dung',
-            'tomtat.required'=>'Hãy nhập tóm tắt',
-        ]);
+        $data = $request->all();
 
         $chapter = new Chapter();
         $chapter->tieude = $data['tieude'];
@@ -46,7 +43,7 @@ class ChapterController extends Controller
 
         $chapter->save();
 
-        return redirect()->back()->with('status','Thêm chapter thành công!');
+        return redirect()->router('chapter.index')->with('status', 'Thêm chapter thành công!');
     }
 
     public function show($id)
@@ -58,23 +55,12 @@ class ChapterController extends Controller
     {
         $chapter = Chapter::find($id);
         $truyen = Truyen::orderBy('id', 'DESC')->get();
-        return view('admin.chapter.edit')->with(compact('truyen','chapter'));
+        return view('admin.chapter.edit')->with(compact('truyen', 'chapter'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ChapterRequest $request, $id)
     {
-        $data = $request->validate([
-            'tieude' => 'required|max:255',
-            'slug_chapter' => 'required|max:255',
-            'noidung' => 'required',
-            'tomtat' => 'required',
-            'kichhoat' => 'required',
-            'truyen_id' => 'required',
-        ], [
-            'tieude.required'=>'Hãy nhập tiêu đề',
-            'noidung.required'=>'Hãy nhập nội dung',
-            'tomtat.required'=>'Hãy nhập tóm tắt',
-        ]);
+        $data = $request->all();
 
         $chapter = Chapter::find($id);
         $chapter->tieude = $data['tieude'];
@@ -86,13 +72,12 @@ class ChapterController extends Controller
 
         $chapter->save();
 
-        return redirect()->back()->with('status','Cập nhật chapter thành công!');
-
+        return redirect()->router('chapter.index')->with('status', 'Cập nhật chapter thành công!');
     }
 
     public function destroy($id)
     {
         Chapter::find($id)->delete();
-        return redirect()->back()->with('status', 'Xóa chapter thành công!');
+        return redirect()->router('chapter.index')->with('status', 'Xóa chapter thành công!');
     }
 }
